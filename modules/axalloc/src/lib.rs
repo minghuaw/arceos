@@ -28,9 +28,11 @@ cfg_if::cfg_if! {
         use allocator::SlabByteAllocator as DefaultByteAllocator;
     } else if #[cfg(feature = "buddy")] {
         use allocator::BuddyByteAllocator as DefaultByteAllocator;
+    } else if #[cfg(feature = "new")] {
+        use allocator::YourNewAllocator as DefaultByteAllocator;
     } else if #[cfg(feature = "tlsf")] {
         use allocator::TlsfByteAllocator as DefaultByteAllocator;
-    }
+    } 
 }
 
 /// The global allocator used by ArceOS.
@@ -65,6 +67,8 @@ impl GlobalAllocator {
                 "slab"
             } else if #[cfg(feature = "buddy")] {
                 "buddy"
+            } else if #[cfg(feature = "new")] {
+                "new"
             } else if #[cfg(feature = "tlsf")] {
                 "TLSF"
             }
