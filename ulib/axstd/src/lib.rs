@@ -49,13 +49,27 @@
 #![cfg_attr(all(not(test), not(doc)), no_std)]
 #![feature(doc_cfg)]
 #![feature(doc_auto_cfg)]
+#![allow(internal_features)] // suppress warnings for feature hashmap_internals
+#![feature(hashmap_internals)]
+#![feature(extend_one)]
+#![feature(hasher_prefixfree_extras)]
+#![feature(error_in_core)]
+#![feature(try_reserve_kind)]
+#![feature(thread_local)]
+#![feature(const_hash)]
 
 #[cfg(feature = "alloc")]
 extern crate alloc;
 
 #[cfg(feature = "alloc")]
 #[doc(no_inline)]
-pub use alloc::{boxed, collections, format, string, vec};
+pub use alloc::{boxed, format, string, vec};
+
+#[cfg(feature = "alloc")]
+pub mod collections;
+
+#[cfg(feature = "alloc")]
+pub mod hash;
 
 #[doc(no_inline)]
 pub use core::{arch, cell, cmp, hint, marker, mem, ops, ptr, slice, str};
